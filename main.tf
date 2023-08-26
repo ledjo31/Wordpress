@@ -36,7 +36,7 @@ resource "aws_security_group" "wpserversg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-	# This will allow us to SSH into the instance for Ansible to do it's magic.
+	# This will allow us to SSH into the instance for Ansible
   ingress {
     from_port = 22
     to_port = 22
@@ -104,6 +104,6 @@ resource "null_resource" "run_playbook" {
   ]
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i hosts playbook.yml"
+    command = "ansible-playbook -i hosts --private-key '${var.private_key_aws_path}' ./playbook.yml"
   }
 }
